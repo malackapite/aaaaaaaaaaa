@@ -2,7 +2,7 @@ import AdatSzerviz from "../model/adatszerviz.js"
 import Model from "../model/model.js";
 import Hiba_xd from "../view/hiba_xd.js";
 import View from "../view/view.js";
-import 禾木一山 from "../view/禾木一山.js";
+import urlap from "../view/urlap.js";
 
 class Controller {
 
@@ -41,7 +41,7 @@ class Controller {
     }
 
     inputMegjelenit(lista) {
-        new 禾木一山(lista, $("#input"))
+        new urlap(lista, $("#input"))
     }
 
     hiba_xd(error) {

@@ -1,21 +1,50 @@
 {
     "魚一禾": {
-        "雨一手月": "Név",
-        "糸心耳一": "text",
-        "耳女人鹿一鳥口女日一工": "Valaki vagyok",
-        "禾人女艸一": "",
-        "工一手一水": "^[A-Za-z]{3,30}$",
-        "糸木糸女一": "bruh"
+        "name": "Név",
+        "type": "text",
+        "placeholder": "Valaki vagyok",
+        "value": "",
+        "attr": {
+           "regex": "^[A-Z][a-z]+$",
+           "required": true
+        },
+        "title": "bruh",
+        "jo":":D",
+        "rossz":"D:"
     },
     "人雨口魚手艸革": {
-        "雨一手月": "mennyi amongus",
-        "糸心耳一": "number",
-        "耳女人鹿一鳥口女日一工": "amongus",
-        "禾人女艸一": "120",
-        "工一手一水": {
-            "雨木魚": 100,
-            "雨人水": 200
+        "name": "mennyi amongus",
+        "type": "number",
+        "placeholder": "amongus",
+        "value": "120",
+        "attr": {
+            "min": 100,
+            "max": 200
         },
-        "糸木糸女一":"bruh2"
+        "title":"bruh2",
+        "jo":"::::D",
+        "rossz":"D::::"
+    },
+    "amongus": {
+        "name": "mennywi amongus",
+        "type": "checkbox",
+        "placeholder": "dsa",
+        "value": ["sus", "amongus", "sussy baka"],
+        "attr": {
+            "checked":"true"
+        },
+        "title":"bruh2"
+    },
+    "amongus2": {
+        "name": "mennywi amongus",
+        "type": "radio",
+        "placeholder": "dsa",
+        "value": ["sus", "amongus", "sussy baka"],
+        "attr": {
+            "checked":"true"
+        },
+        "title":"bruh2",
+        "jo":"::::D",
+        "rossz":"D::::"
     }
 }
