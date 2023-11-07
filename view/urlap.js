@@ -18,22 +18,30 @@ class urlap{
                         ?this.#groupInput(this.#lista[kulcs], kulcs)
                         :this.#simaInput(this.#lista[kulcs], kulcs)}
                 </div>`
-                // console.log(Object.getOwnPropertyNames(this.#lista[kulcs]));
             }
         }
         this.formElem.append(txt+`<div class="col-12"><input class="btn btn-primary" type="submit" value="ඞ"></div>`)
+        
+        $("input").last().on("click",event=>{
+            event.preventDefault()
+            this.#edit()
+        })
+
         this.#validacio()
     }
 
+    #edit(){
+        window.dispatchEvent(new CustomEvent("edit", {detail:this}))
+    }
+
     #regex(kulcs){
-        // console.log(Object.getOwnPropertyNames(kulcs));
         let tmp= `${kulcs.attr.required?" required ":""}`
 
         switch (kulcs.type) {
             case "text": 
                 tmp+= `pattern="${kulcs.attr.regex}"`
                 break
-            case "number":
+            case "number", "date":
                 tmp+= `
                 min="${kulcs.attr.min}"
                 max="${kulcs.attr.max}"
@@ -49,7 +57,7 @@ class urlap{
     #groupInput(kulcs, name){
         let tmp=``
         kulcs.value.forEach((element, ix) => {
-            console.log(kulcs);
+            // console.log(kulcs);
             tmp+=
             `<div class="form-check">
                 <input class="form-check-input was-validated" type="${kulcs.type}" 

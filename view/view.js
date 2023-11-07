@@ -2,7 +2,7 @@ import Sor from "./sor.js";
 
 class View{
     constructor(lista, szulElem){
-        this.megjelenit(lista.nevek, szulElem)
+        this.megjelenit(lista, szulElem)
     }
 
     megjelenit(lista, szulElem){
