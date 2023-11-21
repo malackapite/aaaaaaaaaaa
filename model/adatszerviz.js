@@ -1,6 +1,6 @@
 export default class AdatSzerviz{
     getData(vegpont, callback, hiba_xd){
-        return axios.get(vegpont)
+        axios.get(vegpont)
             .then(function (response) {
                 // handle success
                 // console.log("Anongus",response);
