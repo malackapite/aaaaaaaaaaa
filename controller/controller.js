@@ -2,6 +2,7 @@ import AdatSzerviz from "../model/adatszerviz.js"
 import Hiba_xd from "../view/hiba_xd.js";
 import View from "../view/view.js";
 import urlap from "../view/urlap.js";
+import Model from "../model/model.js";
 
 class Controller {
 
@@ -11,33 +12,25 @@ class Controller {
         this.adatSzerviz = new AdatSzerviz()
         
         this.adatSzerviz.getData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd)
-        this.adatSzerviz.getData("../macskaInput.json", this.inputMegjelenit, this.hiba_xd)
+        this.adatSzerviz.getData("../admin/macskaInput.json", this.inputMegjelenit, this.hiba_xd)
 
         $(window).on("edit", event =>{
             console.log($("input").eq(0).val());
-            this.adatSzerviz.prosData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd, {"nev":$("input").eq(0).val(), "szul": $("input").eq(1).val()})
+            this.adatSzerviz.prosData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd, Model.adatok($("#input > form").children()))
         })
-        // $(window).on("torol", event => {
-        //     szuloELEM.empty()
-        //     this.adatSzerviz.getData("../adat.json", this.megjelenit, this.hiba_xd)
-        // })
+        $(window).on("torol", event => {
+            szuloELEM.empty()
+            this.adatSzerviz.delTa("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd, event.detail)
+        })
 
-        // $(window).on("check", event => {
-        //     szuloELEM.empty()
-        //     this.adatSzerviz.getData("../adat.json", this.megjelenit, this.hiba_xd)
-        // })
-
-        // $(window).on("megse", event => {
-        //     szuloELEM.empty()
-        //     this.adatSzerviz.getData("../adat.json", this.megjelenit, this.hiba_xd)
-        // })
-
-        // $(window).on("ujadat", event => {
-        //     szuloELEM.empty()
-        //     this.adatSzerviz.getData("../adat.json", this.megjelenit, this.hiba_xd)
-        // })
+        $(window).on("kuldes", event => {
+            szuloELEM.empty()
+            console.log(event.detail.id);
+            this.adatSzerviz.putinData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd, event.detail)
+        })
+        
     }
-
+    
     megjelenit(lista) {
         new View(lista, $("#lista"))
     }

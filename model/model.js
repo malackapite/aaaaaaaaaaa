@@ -1,31 +1,13 @@
 class Model {
-    #list=[]
 
-    constructor(lista){
-        console.log(lista);
-        lista.forEach(element => {
-            element.kesz=false
-        });
-        this.#list=lista
-    }
-
-    get list(){
-        return this.#list;
-    }
-
-    torol(nth){
-        TODOLIST2.splice(nth, 1)
-    }
-
-    check(nth){
-        TODOLIST2[nth].kesz=true
-    }
-    megse(nth){
-        TODOLIST2[nth].kesz=false
-    }
-
-    adatok(adatok){
-        TODOLIST2.push(adatok)
+    static adatok(inputElemek){
+        let tmp={}
+        console.log(inputElemek);
+        for (let ix = 0; ix < inputElemek.length-1; ix++){
+            let elem=$(inputElemek[ix]).children("input").eq(0)
+            tmp[elem.attr("id")] = elem.val()
+        }
+        return tmp
     }
 }
 

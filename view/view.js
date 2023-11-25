@@ -18,7 +18,7 @@ class View{
                 tmp+=`<th>${key}</th>`
             }
         }
-        szulElem.children("table").eq(0).children("thead").eq(0).append("<tr class='table-dark'>"+tmp+"<th>kijelöl</th><th>mégse</th><th>töröl</th></tr>")
+        szulElem.children("table").eq(0).children("thead").eq(0).append("<tr class='table-dark'>"+tmp+"<th>mentés</th><th>módosít</th><th>töröl</th></tr>")
         
     }
 

@@ -1,5 +1,5 @@
 {
-    "魚一禾": {
+    "nev": {
         "name": "Név",
         "type": "text",
         "placeholder": "Valaki vagyok",
@@ -12,7 +12,7 @@
         "jo":":D",
         "rossz":"D:"
     },
-    "人雨口魚手艸革": {
+    "szul": {
         "name": "mikor",
         "type": "date",
         "placeholder": "amongus",

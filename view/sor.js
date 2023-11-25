@@ -4,48 +4,61 @@ class Sor{
         this.$szuloElem=szuloElem
         this.index=index
         
-        this.#sor()
-
-        
+        this.$szuloElem.append("<tr></tr>")
         this.$sorElem=this.$szuloElem.children("tr:last-child")
-        this.$keszElem=this.$sorElem.children(".check")
-        
-        if(this.$elem.kesz)
-            this.$sorElem.children("td").css("background-color","green", "important")
-        else
-            this.$sorElem.children("td").css("background-color","white", "important")
+        this.#sor()
+    }
 
-        this.$keszElem.on("click",()=>{
-            this.#checkEsemeny()
+    esemenyHozzaad() {
+        this.$sorElem.children(".kuldes").on("click", () => {
+            this.#kuldesEsemeny()
         })
-        this.$sorElem.children(".cancel").on("click",()=>{
-            this.#megseEsemeny()
+        this.$sorElem.children(".modosit").on("click", () => {
+            this.#modositSor()
         })
-        this.$sorElem.children(".delete").on("click",()=>{
+        this.$sorElem.children(".megse").on("click", () => {
+            this.#sor()
+        })
+        this.$sorElem.children(".torol").on("click", () => {
             this.#torolEsemeny()
         })
     }
 
     #sor() {
-        let tmp=`<tr>`
+        let tmp=``
         for (const kulcs in this.$elem) {
-            if (Object.hasOwnProperty.call(this.$elem, kulcs) && kulcs!="kesz") {
+            if (Object.hasOwnProperty.call(this.$elem, kulcs) ) {
                 tmp += `<td>${this.$elem[kulcs]}</td>`             
             }
         }
-        tmp+=`<td class="check">✔💨</td><td class="cancel">❌💨</td><td class="delete">🗑💨</td>`
-        tmp+="</tr>"
-        this.$szuloElem.append(tmp)
+        tmp+=`<td></td><td class="modosit">✏💨</td><td class="torol">🗑💨</td>`
+        this.$sorElem.html(tmp)
+        this.esemenyHozzaad()
+    }
+
+    #modositSor(){
+        let tmp=``
+        for (const kulcs in this.$elem) {
+            if (Object.hasOwnProperty.call(this.$elem, kulcs)) {
+                if(!(kulcs == "id" || kulcs == "created_at" || kulcs == "updated_at"))
+                    tmp+= `<td><input type="text"></td>`
+                else
+                    tmp += `<td>${this.$elem[kulcs]}</td>`             
+            }
+        }
+        tmp+=`<td class="kuldes">✔💨</td><td class="megse">❌💨</td><td class="torol">🗑💨</td>`
+        this.$sorElem.html(tmp)
+        this.esemenyHozzaad()
     }
 
     #torolEsemeny(){
-        window.dispatchEvent(new CustomEvent("torol", {detail:this.index}))
+        window.dispatchEvent(new CustomEvent("torol", {detail:this.$elem.id}))
     }
-    #checkEsemeny(){
-        window.dispatchEvent(new CustomEvent("check", {detail:this.index}))
+    #kuldesEsemeny(){
+        window.dispatchEvent(new CustomEvent("kuldes", {detail:{id: this.$elem.id, nev: this.$sorElem.children("td").eq(1).children("input").eq(0).val(), szul: this.$sorElem.children("td").eq(2).children("input").eq(0).val()}}))
     }
-    #megseEsemeny(){
-        window.dispatchEvent(new CustomEvent("megse", {detail:this.index}))
+    #modositEsemeny(){
+        window.dispatchEvent(new CustomEvent("modosit", {detail:this.index}))
     }
 }
 
