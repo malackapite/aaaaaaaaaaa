@@ -19,7 +19,22 @@ export default class AdatSzerviz{
             });
     }
 
+    datAll(vegpontok, callback, hiba_xd){
+        axios.all(vegpontok.map( vegpont => axios.get(vegpont)))
+            .then(axios.spread((...allData) => {
+                callback({adatok:allData[0].data, input: allData[1].data})
+            }))
+            .catch(function (error) {
+                // handle error
+                hiba_xd(error)
+            })
+            .finally(function () {
+                // always executed
+            });
+    }
+
     prosData(url, callback, hiba_xd, data){
+        console.log(data);
         axios.post(url, data)
         .then(response => {
             this.getData(url, callback, hiba_xd)

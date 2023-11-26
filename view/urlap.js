@@ -22,19 +22,22 @@ class urlap{
         }
         this.formElem.append(txt+`<div class="col-12"><input class="btn btn-primary" type="submit" value="ඞ"></div>`)
         
-        $("input").last().on("click",event=>{
-            event.preventDefault()
-            this.#edit()
-        })
-
         this.#validacio()
+
+        console.log($("#input:last"));
+        $("input").last().submit(false);
+        $(document).on('submit', '#input', event => {
+            event.preventDefault();
+            this.#edit()
+        });
+
     }
 
     #edit(){
         window.dispatchEvent(new CustomEvent("edit", {detail:this}))
     }
 
-    #regex(kulcs){
+    static #regex(kulcs){
         let tmp= `${kulcs.attr.required?" required ":""}`
 
         switch (kulcs.type) {
@@ -47,27 +50,34 @@ class urlap{
                 max="${kulcs.attr.max}"
                 `
                 break
-            case "radio":
-                tmp+= `checked="${kulcs.attr.checked}"`
-                break
+            // case "radio":
+            //     tmp+= `checked="${kulcs.attr.checked}"`
+            //     break
         }
         return tmp
     }
 
+    static attrMeghatarozo(kulcs, name){
+        return `type="${kulcs.type}" 
+                value="${kulcs.ix===undefined
+                    ?kulcs.value
+                    :kulcs.value[kulcs.ix]}"
+                id="${name+(kulcs.ix===undefined?"":kulcs.ix)}" 
+                name="${name}" 
+                placeholder="${kulcs.placeholder}" 
+                title="${kulcs.title}"
+                ${urlap.#regex(kulcs)}`
+    }
+
     #groupInput(kulcs, name){
-        let tmp=``
+        let tmp=`<label>${kulcs.name}</label>`
         kulcs.value.forEach((element, ix) => {
-            // console.log(kulcs);
+            kulcs['ix']=ix
             tmp+=
             `<div class="form-check">
-                <input class="form-check-input was-validated" type="${kulcs.type}" 
-                    value="${element}" id="${name+element}" 
-                    name="${name}" 
-                    placeholder="${kulcs.placeholder}" 
-                    title="${kulcs.title}"
-                    ${this.#regex(kulcs)}
+                <input class="form-check-input was-validated" ${urlap.attrMeghatarozo(kulcs, name)}
                     >
-                <label class="form-check-label" for="${name+element}">${element}</label>
+                <label class="form-check-label" for="${name+ix}">${element}</label>
                 ${
                     ix === kulcs.value.length-1
                     ?
@@ -96,12 +106,7 @@ class urlap{
 
     #simaInput(kulcs, name){
         return `<label class="form-label" for="${name}">${kulcs.name}</label>
-        <input class="form-control" type="${kulcs.type}" 
-                value="${kulcs.value}" id="${name}" 
-                name="${name}" 
-                placeholder="${kulcs.placeholder}" 
-                title="${kulcs.title}"
-                ${this.#regex(kulcs)}
+        <input class="form-control" ${urlap.attrMeghatarozo(kulcs, name)}
                 >
                 
         <div class="valid-feedback">

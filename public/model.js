@@ -3,7 +3,7 @@ class Model {
     #list=[]
     
     constructor(){
-        let tmp = localStorage.getItem("IDs").split(",")
+        let tmp = localStorage.getItem("IDs") !== null? localStorage.getItem("IDs").split(","):[]
         this.#list= tmp[0]=== ""?[]:tmp 
     }
     
@@ -17,10 +17,6 @@ class Model {
         console.log(this.#list);
         localStorage.setItem("IDs",  this.#list.toString())
     }
-
-    // find(elem){
-    //     return this.#list.find(item, item == elem)
-    // }
 
     get lista(){
         return this.#list

@@ -23,5 +23,17 @@
         "title":"bruh2",
         "jo":"::::D",
         "rossz":"D::::"
+    },
+    "sus_id": {
+        "name": "sus?",
+        "type": "radio",
+        "placeholder": "dsa",
+        "value": [1, 2, 3],
+        "attr": {
+            "required": true
+        },
+        "title":"bruh2",
+        "jo":"::::D",
+        "rossz":"D::::"
     }
 }

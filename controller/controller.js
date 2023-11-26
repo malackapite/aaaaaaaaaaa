@@ -11,11 +11,12 @@ class Controller {
         let szuloELEM = $("#lista")
         this.adatSzerviz = new AdatSzerviz()
         
-        this.adatSzerviz.getData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd)
+        //mivel a táblázatnak is tudnia kell az inputokról és nem akarjuk, hogy a view kommunikáljon a modellel, ezért az inputokat is átadjuk a viewnak
+        this.adatSzerviz.datAll(["http://localhost:8000/api/macskak","../admin/macskaInput.json"], this.megjelenit, this.hiba_xd)
+        // this.adatSzerviz.getData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd)
         this.adatSzerviz.getData("../admin/macskaInput.json", this.inputMegjelenit, this.hiba_xd)
 
         $(window).on("edit", event =>{
-            console.log($("input").eq(0).val());
             this.adatSzerviz.prosData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd, Model.adatok($("#input > form").children()))
         })
         $(window).on("torol", event => {
@@ -25,7 +26,6 @@ class Controller {
 
         $(window).on("kuldes", event => {
             szuloELEM.empty()
-            console.log(event.detail.id);
             this.adatSzerviz.putinData("http://localhost:8000/api/macskak", this.megjelenit, this.hiba_xd, event.detail)
         })
         
